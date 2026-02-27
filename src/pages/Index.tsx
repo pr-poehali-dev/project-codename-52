@@ -24,60 +24,60 @@ export default function Index() {
   }
 
   const commands = [
-    "flux init --ai-powered",
-    "flux generate --model gpt-5 --context full",
-    "flux review --agent claude-4 --interactive",
-    "flux deploy --env production --optimize",
+    "/deploy main → production",
+    "/status my-app",
+    "/rollback my-app --to=v2.3.1",
+    "/logs my-app --tail=50",
   ]
 
   const terminalSequences = [
     {
-      command: "flux init --ai-powered",
+      command: "/deploy main → production",
       outputs: [
-        "Инициализация проекта FLUX CLI...",
-        "Установка зависимостей...",
-        "Настройка AI-моделей...",
-        "Проект успешно создан!",
+        "🤖 TelegramDeploy получил команду...",
+        "📦 Клонирование репозитория...",
+        "🔨 Сборка образа Docker...",
+        "✅ Деплой успешно завершён!",
       ],
     },
     {
-      command: "flux generate --model gpt-5 --context full",
+      command: "/status my-app",
       outputs: [
-        "Загрузка модели GPT-5...",
-        "Анализ контекста проекта...",
-        "Генерация кода...",
-        "Генерация завершена!",
+        "🔍 Проверка статуса сервиса...",
+        "💚 my-app: RUNNING (uptime 99.9%)",
+        "📊 CPU: 12% | RAM: 256MB",
+        "✅ Всё работает стабильно!",
       ],
     },
     {
-      command: "flux review --agent claude-4 --interactive",
+      command: "/rollback my-app --to=v2.3.1",
       outputs: [
-        "Запуск интерактивного ревью...",
-        "Claude-4 анализирует изменения...",
-        "Формирование рекомендаций...",
-        "Сессия ревью активна!",
+        "⏪ Откат к версии v2.3.1...",
+        "📦 Загрузка образа v2.3.1...",
+        "🔄 Перезапуск контейнеров...",
+        "✅ Откат выполнен успешно!",
       ],
     },
     {
-      command: "flux deploy --env production --optimize",
+      command: "/logs my-app --tail=50",
       outputs: [
-        "Сборка для production...",
-        "Оптимизация бандла...",
-        "Деплой на production...",
-        "Деплой завершён!",
+        "📋 Получение последних логов...",
+        "[INFO] Server started on :8080",
+        "[INFO] Connected to database",
+        "✅ Готово — 50 строк получено!",
       ],
     },
   ]
 
-  const heroAsciiText = `███████╗██╗     ██╗   ██╗██╗  ██╗     ██████╗██╗     ██╗
-██╔════╝██║     ██║   ██║╚██╗██╔╝    ██╔════╝██║     ██║
-█████╗  ██║     ██║   ██║ ╚███╔╝     ██║     ██║     ██║
-██╔══╝  ██║     ██║   ██║ ██╔██╗     ██║     ██║     ██║
-██║     ███████╗╚██████╔╝██╔╝ ██╗    ╚██████╗███████╗██║
-╚═╝     ╚══════╝ ╚═════╝ ╚═╝  ╚═╝     ╚═════╝╚══════╝╚═╝`
+  const heroAsciiText = `████████╗ ██████╗     ██████╗ ███████╗██████╗ ██╗      ██████╗ ██╗   ██╗
+╚══██╔══╝██╔════╝     ██╔══██╗██╔════╝██╔══██╗██║     ██╔═══██╗╚██╗ ██╔╝
+   ██║   ██║  ███╗    ██║  ██║█████╗  ██████╔╝██║     ██║   ██║ ╚████╔╝ 
+   ██║   ██║   ██║    ██║  ██║██╔══╝  ██╔═══╝ ██║     ██║   ██║  ╚██╔╝  
+   ██║   ╚██████╔╝    ██████╔╝███████╗██║     ███████╗╚██████╔╝   ██║   
+   ╚═╝    ╚═════╝     ╚═════╝ ╚══════╝╚═╝     ╚══════╝ ╚═════╝    ╚═╝   `
 
   useEffect(() => {
-    const chars = "FLUXCLI01010101ABCDEF".split("")
+    const chars = "DEPLOY01TGBOT10STATUS".split("")
     const newMatrixChars = Array.from({ length: 100 }, () => chars[Math.floor(Math.random() * chars.length)])
     setMatrixChars(newMatrixChars)
 
@@ -165,8 +165,8 @@ export default function Index() {
                 <div className="w-3 h-3 bg-green-500 hover:bg-green-400 transition-colors cursor-pointer"></div>
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-white font-bold text-lg">FLUX</span>
-                <span className="text-gray-400 text-sm">CLI</span>
+                <span className="text-white font-bold text-lg">TG</span>
+                <span className="text-gray-400 text-sm">DEPLOY</span>
               </div>
             </div>
 
@@ -182,7 +182,7 @@ export default function Index() {
                 href="#models"
                 className="text-gray-400 hover:text-white transition-colors cursor-pointer relative group"
               >
-                <span>AI-модели</span>
+                <span>Команды</span>
                 <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></div>
               </a>
               <a
@@ -210,7 +210,7 @@ export default function Index() {
 
             <div
               className="group relative cursor-pointer"
-              onClick={() => copyToClipboard("npm install -g flux-cli", "nav-install")}
+              onClick={() => copyToClipboard("pip install tg-deploy", "nav-install")}
             >
               <div className="absolute inset-0 border border-gray-600 bg-gray-900/20 transition-all duration-300 group-hover:border-white group-hover:shadow-lg group-hover:shadow-white/20"></div>
               <div className="relative border border-gray-400 bg-transparent text-white font-medium px-6 py-2 text-sm transition-all duration-300 group-hover:border-white group-hover:bg-gray-900/30 transform translate-x-0.5 translate-y-0.5 group-hover:translate-x-0 group-hover:translate-y-0">
@@ -257,20 +257,20 @@ export default function Index() {
             </div>
 
             <h1 className="text-4xl lg:text-6xl font-bold mb-6 leading-tight">
-              Создан, чтобы помочь вам <span className="text-gray-400 animate-pulse">деплоить</span>,
+              Деплой одним сообщением <span className="text-gray-400 animate-pulse">в Telegram</span>,
               <br />
-              прямо из{" "}
-              <span className="bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">терминала</span>.
+              без{" "}
+              <span className="bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">консоли и VPN</span>.
             </h1>
 
             <p className="text-lg text-gray-300 leading-relaxed max-w-3xl mx-auto mb-8">
-              Используйте в IDE или любом терминале. Одни команды, любое окружение. Интегрируется в любой рабочий процесс. Полный контроль из терминала.
+              Напишите боту /deploy — и ваш сервис уже в продакшне. Откат, статус, логи — всё прямо из Telegram. Работает с любым сервером и любым стеком.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
               <div
                 className="group relative cursor-pointer w-full sm:w-auto"
-                onClick={() => copyToClipboard("npm install -g flux-cli", "hero-install")}
+                onClick={() => copyToClipboard("pip install tg-deploy", "hero-install")}
               >
                 <div className="absolute inset-0 border border-gray-600 bg-gray-900/20 transition-all duration-300 group-hover:border-white group-hover:shadow-lg group-hover:shadow-white/20"></div>
                 <div className="relative border border-white bg-white text-black font-bold px-6 sm:px-10 py-4 text-base sm:text-lg transition-all duration-300 group-hover:bg-gray-100 group-hover:text-black transform translate-x-1 translate-y-1 group-hover:translate-x-0 group-hover:translate-y-0 text-center">
@@ -281,7 +281,7 @@ export default function Index() {
                       <Copy className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" />
                     )}
                     <span className="text-gray-600 text-sm sm:text-base">$</span>
-                    <span className="text-sm sm:text-base">npm install -g flux-cli</span>
+                    <span className="text-sm sm:text-base">pip install tg-deploy</span>
                   </div>
                 </div>
               </div>
@@ -308,7 +308,7 @@ export default function Index() {
                     <div className="w-3 h-3 bg-yellow-500 hover:bg-yellow-400 transition-colors cursor-pointer"></div>
                     <div className="w-3 h-3 bg-green-500 hover:bg-green-400 transition-colors cursor-pointer"></div>
                   </div>
-                  <span className="text-gray-400 text-sm">flux-terminal</span>
+                  <span className="text-gray-400 text-sm">tg-deploy — bot session</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
@@ -321,7 +321,7 @@ export default function Index() {
                   {terminalLines.map((line, index) => (
                     <div
                       key={index}
-                      className={`${line.startsWith("user@dev") ? "text-white" : "text-gray-300"} ${line.includes("успешно") || line.includes("завершен") || line.includes("активна") ? "text-green-400" : ""}`}
+                      className={`${line.startsWith("user@dev") ? "text-white" : "text-gray-300"} ${line.includes("успешно") || line.includes("завершён") || line.includes("завершена") || line.includes("✅") ? "text-green-400" : ""}`}
                     >
                       {line}
                     </div>
@@ -360,16 +360,16 @@ export default function Index() {
 
                 <div className="mt-6 pt-4 border-t border-gray-800 flex justify-between text-xs text-gray-500">
                   <div className="flex items-center gap-4">
-                    <span className="text-gray-500">Команд выполнено:</span>
+                    <span className="text-gray-500">Деплоев выполнено:</span>
                     <span className="text-white">{currentCommand + 1}</span>
                   </div>
                   <div className="flex items-center gap-4">
-                    <span className="text-gray-500">AI-модели:</span>
-                    <span className="text-gray-500">Активны</span>
+                    <span className="text-gray-500">Бот:</span>
+                    <span className="text-gray-500">Онлайн</span>
                   </div>
                   <div className="flex items-center gap-4">
                     <span className="text-gray-500">Статус:</span>
-                    <span className="text-gray-500">{isExecuting ? "Работает" : "Готов"}</span>
+                    <span className="text-gray-500">{isExecuting ? "Деплоит..." : "Готов"}</span>
                   </div>
                 </div>
               </div>
@@ -382,9 +382,9 @@ export default function Index() {
       <section className="px-6 py-16 lg:px-12 border-t border-gray-800" id="integrations">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-bold mb-4">Поддержка всех IDE</h2>
+            <h2 className="text-3xl lg:text-4xl font-bold mb-4">Работает с любой инфраструктурой</h2>
             <p className="text-lg text-gray-400 max-w-2xl mx-auto">
-              FLUX CLI работает везде. Одна установка, безграничные возможности.
+              TG Deploy подключается к любому серверу. Одна настройка — и команда деплоит из Telegram.
             </p>
           </div>
 
@@ -397,7 +397,7 @@ export default function Index() {
                     <div className="w-3 h-3 bg-yellow-500"></div>
                     <div className="w-3 h-3 bg-green-500"></div>
                   </div>
-                  <span className="text-gray-400 text-sm">flux ide --list</span>
+                  <span className="text-gray-400 text-sm">tg-deploy --list-integrations</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
@@ -406,16 +406,16 @@ export default function Index() {
               </div>
 
               <div className="p-6 bg-black">
-                <div className="text-sm text-gray-400 mb-4">$ flux ide --scan</div>
+                <div className="text-sm text-gray-400 mb-4">$ tg-deploy --list-integrations</div>
 
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4 font-mono text-sm mb-6">
                   {[
-                    { name: "cursor", status: "v", desc: "AI-редактор" },
-                    { name: "vscode", status: "v", desc: "Microsoft VS Code" },
-                    { name: "jetbrains", status: "v", desc: "Семейство IntelliJ" },
-                    { name: "android-studio", status: "v", desc: "Android-разработка" },
-                    { name: "vim/neovim", status: "v", desc: "Терминальные редакторы" },
-                    { name: "intellij", status: "v", desc: "Java-разработка" },
+                    { name: "docker", status: "v", desc: "Контейнеры" },
+                    { name: "github-actions", status: "v", desc: "CI/CD Pipeline" },
+                    { name: "gitlab-ci", status: "v", desc: "GitLab CI" },
+                    { name: "kubernetes", status: "v", desc: "K8s кластеры" },
+                    { name: "nginx / caddy", status: "v", desc: "Веб-серверы" },
+                    { name: "systemd", status: "v", desc: "Linux сервисы" },
                   ].map((ide) => (
                     <div
                       key={ide.name}
@@ -438,8 +438,8 @@ export default function Index() {
                   <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                     <div className="text-sm text-gray-400">
                       <div className="font-mono text-xs text-gray-500 space-y-1">
-                        <div>$ flux ide --install-all # Настроить все IDE</div>
-                        <div>$ flux ide --status # Проверить интеграцию</div>
+                        <div>$ tg-deploy connect --server=your-ip # Подключить сервер</div>
+                        <div>$ tg-deploy status # Проверить интеграцию</div>
                       </div>
                     </div>
 
@@ -461,7 +461,7 @@ export default function Index() {
             <div className="mt-4 text-center">
               <div className="inline-flex items-center gap-2 text-gray-400 text-sm">
                 <span className="text-green-400">*</span>
-                <span>Универсальная совместимость - Мгновенная настройка - Работает везде</span>
+                <span>Любой стек - Любой сервер - Деплой прямо из Telegram</span>
               </div>
             </div>
           </div>
@@ -472,8 +472,8 @@ export default function Index() {
       <section className="px-6 py-20 lg:px-12 border-t border-gray-800" id="models">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6">Новейшие AI-модели</h2>
-            <p className="text-xl text-gray-400">Выбирайте AI-модель прямо из терминала</p>
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6">Все команды бота</h2>
+            <p className="text-xl text-gray-400">Управляйте сервером прямо из Telegram-чата</p>
           </div>
 
           <div className="max-w-4xl mx-auto">
@@ -485,7 +485,7 @@ export default function Index() {
                     <div className="w-3 h-3 bg-yellow-500"></div>
                     <div className="w-3 h-3 bg-green-500"></div>
                   </div>
-                  <span className="text-gray-400 text-sm">flux model select</span>
+                  <span className="text-gray-400 text-sm">@tg_deploy_bot — команды</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
@@ -494,16 +494,16 @@ export default function Index() {
               </div>
 
               <div className="p-6 bg-black">
-                <div className="text-sm text-gray-400 mb-4">$ flux model --list</div>
+                <div className="text-sm text-gray-400 mb-4">Доступные команды:</div>
 
                 <div className="space-y-2 font-mono text-sm">
                   {[
-                    { id: "1", name: "gpt-5", provider: "openai", status: "*", color: "text-green-400" },
-                    { id: "2", name: "claude-4-sonnet", provider: "anthropic", status: "*", color: "text-green-400" },
-                    { id: "3", name: "claude-4.1-opus", provider: "anthropic", status: "*", color: "text-green-400" },
-                    { id: "4", name: "o3", provider: "openai", status: "*", color: "text-green-400" },
-                    { id: "5", name: "gemini-2.5-pro", provider: "google", status: "*", color: "text-green-400" },
-                    { id: "6", name: "grok-4", provider: "xai", status: "*", color: "text-green-400" },
+                    { id: "1", name: "/deploy", provider: "branch → env", status: "✓", color: "text-green-400" },
+                    { id: "2", name: "/status", provider: "service-name", status: "✓", color: "text-green-400" },
+                    { id: "3", name: "/rollback", provider: "service --to=v1.0", status: "✓", color: "text-green-400" },
+                    { id: "4", name: "/logs", provider: "service --tail=100", status: "✓", color: "text-green-400" },
+                    { id: "5", name: "/restart", provider: "service-name", status: "✓", color: "text-green-400" },
+                    { id: "6", name: "/list", provider: "все сервисы", status: "✓", color: "text-green-400" },
                   ].map((model) => (
                     <div
                       key={model.id}
@@ -518,7 +518,7 @@ export default function Index() {
                         <span className="text-gray-500 text-xs">({model.provider})</span>
                       </div>
                       <div className="opacity-0 group-hover:opacity-100 transition-opacity text-gray-500 text-xs">
-                        Нажмите {model.id} для выбора
+                        отправить боту
                       </div>
                     </div>
                   ))}
@@ -527,26 +527,26 @@ export default function Index() {
                 <div className="mt-6 pt-4 border-t border-gray-800">
                   <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                     <div className="text-sm text-gray-400">
-                      <div className="mb-2">Использование:</div>
+                      <div className="mb-2">Примеры:</div>
                       <div className="font-mono text-xs text-gray-500 space-y-1">
-                        <div>$ flux generate --model gpt-5 "Создать React-компонент"</div>
-                        <div>$ flux model set claude-4-sonnet # По умолчанию</div>
-                        <div>$ flux model status # Проверить модели</div>
+                        <div>/deploy main → production</div>
+                        <div>/rollback api-service --to=v2.3.1</div>
+                        <div>/logs frontend --tail=50</div>
                       </div>
                     </div>
 
                     <div className="flex items-center gap-6 text-xs text-gray-500">
                       <div className="flex items-center gap-2">
                         <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                        <span>4 активно</span>
+                        <span>6 команд</span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
-                        <span>2 ожидают</span>
+                        <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                        <span>Telegram Bot API</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <div className="w-2 h-2 bg-gray-500 rounded-full animate-pulse"></div>
-                        <span>Авто-синхронизация</span>
+                        <span>Webhook / Polling</span>
                       </div>
                     </div>
                   </div>
@@ -557,7 +557,7 @@ export default function Index() {
             <div className="mt-6 text-center">
               <div className="inline-flex items-center gap-2 text-gray-400 text-sm">
                 <span className="text-green-400">*</span>
-                <span>Модели обновляются автоматически - Настройка не требуется</span>
+                <span>Команды всегда доступны - Бот работает 24/7 - Уведомления мгновенно</span>
               </div>
             </div>
           </div>
@@ -568,9 +568,9 @@ export default function Index() {
       <section className="px-6 py-20 lg:px-12 border-t border-gray-800 bg-gray-950/30" id="docs">
         <div className="max-w-5xl mx-auto text-center">
           <div className="mb-12">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6">Готовы ускориться?</h2>
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6">Начните деплоить из Telegram</h2>
             <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-              Пишите мощные скрипты и автоматизации. Автоматически обновляйте документацию, запускайте проверки безопасности или создавайте собственных AI-агентов.
+              Три шага — и ваша команда деплоит сервисы прямо из мессенджера. Без VPN, без SSH, без лишних инструментов.
             </p>
           </div>
 
@@ -583,18 +583,18 @@ export default function Index() {
                     <div className="w-12 h-12 mx-auto mb-4 bg-gray-900 border border-gray-600 flex items-center justify-center group-hover:border-white transition-colors group-hover:bg-gray-800">
                       <span className="text-lg font-mono text-white group-hover:text-gray-100">01</span>
                     </div>
-                    <h3 className="text-lg font-bold mb-3 text-white group-hover:text-gray-100">Инициализация</h3>
+                    <h3 className="text-lg font-bold mb-3 text-white group-hover:text-gray-100">Установка</h3>
                     <p className="text-gray-400 mb-4 group-hover:text-gray-300 text-sm leading-relaxed">
-                      Создавайте AI-проекты без настройки
+                      Установите пакет и создайте Telegram-бота через BotFather
                     </p>
                   </div>
                   <div
                     className="bg-gray-900 border border-gray-700 p-2.5 font-mono text-xs text-left group-hover:border-gray-500 transition-colors group-hover:bg-gray-800 cursor-pointer flex items-center justify-between"
-                    onClick={() => copyToClipboard("flux init", "init-cmd")}
+                    onClick={() => copyToClipboard("pip install tg-deploy", "init-cmd")}
                   >
                     <div className="flex items-center gap-2">
                       <span className="text-gray-500">$ </span>
-                      <span className="text-white group-hover:text-gray-100">flux init</span>
+                      <span className="text-white group-hover:text-gray-100">pip install tg-deploy</span>
                     </div>
                     {copiedStates["init-cmd"] ? (
                       <Check className="w-3 h-3 text-green-400" />
@@ -614,18 +614,18 @@ export default function Index() {
                     <div className="w-12 h-12 mx-auto mb-4 bg-gray-900 border border-gray-600 flex items-center justify-center group-hover:border-white transition-colors group-hover:bg-gray-800">
                       <span className="text-lg font-mono text-white group-hover:text-gray-100">02</span>
                     </div>
-                    <h3 className="text-lg font-bold mb-3 text-white group-hover:text-gray-100">Генерация</h3>
+                    <h3 className="text-lg font-bold mb-3 text-white group-hover:text-gray-100">Настройка</h3>
                     <p className="text-gray-400 mb-4 group-hover:text-gray-300 text-sm leading-relaxed">
-                      Создавайте код с новейшими AI-моделями
+                      Подключите сервер и добавьте BOT_TOKEN в конфиг
                     </p>
                   </div>
                   <div
                     className="bg-gray-900 border border-gray-700 p-2.5 font-mono text-xs text-left group-hover:border-gray-500 transition-colors group-hover:bg-gray-800 cursor-pointer flex items-center justify-between"
-                    onClick={() => copyToClipboard("flux generate", "generate-cmd")}
+                    onClick={() => copyToClipboard("tg-deploy init --token=YOUR_BOT_TOKEN", "generate-cmd")}
                   >
                     <div className="flex items-center gap-2">
                       <span className="text-gray-500">$ </span>
-                      <span className="text-white group-hover:text-gray-100">flux generate</span>
+                      <span className="text-white group-hover:text-gray-100">tg-deploy init</span>
                     </div>
                     {copiedStates["generate-cmd"] ? (
                       <Check className="w-3 h-3 text-green-400" />
@@ -645,18 +645,18 @@ export default function Index() {
                     <div className="w-12 h-12 mx-auto mb-4 bg-gray-900 border border-gray-600 flex items-center justify-center group-hover:border-white transition-colors group-hover:bg-gray-800">
                       <span className="text-lg font-mono text-white group-hover:text-gray-100">03</span>
                     </div>
-                    <h3 className="text-lg font-bold mb-3 text-white group-hover:text-gray-100">Деплой</h3>
+                    <h3 className="text-lg font-bold mb-3 text-white group-hover:text-gray-100">Деплой!</h3>
                     <p className="text-gray-400 mb-4 group-hover:text-gray-300 text-sm leading-relaxed">
-                      Выкатывайте в production с авто-оптимизацией
+                      Отправьте /deploy в Telegram — сервис уже в продакшне
                     </p>
                   </div>
                   <div
                     className="bg-gray-900 border border-gray-700 p-2.5 font-mono text-xs text-left group-hover:border-gray-500 transition-colors group-hover:bg-gray-800 cursor-pointer flex items-center justify-between"
-                    onClick={() => copyToClipboard("flux deploy", "deploy-cmd")}
+                    onClick={() => copyToClipboard("/deploy main → production", "deploy-cmd")}
                   >
                     <div className="flex items-center gap-2">
-                      <span className="text-gray-500">$ </span>
-                      <span className="text-white group-hover:text-gray-100">flux deploy</span>
+                      <span className="text-gray-500">✈ </span>
+                      <span className="text-white group-hover:text-gray-100">/deploy main → production</span>
                     </div>
                     {copiedStates["deploy-cmd"] ? (
                       <Check className="w-3 h-3 text-green-400" />
@@ -682,14 +682,14 @@ export default function Index() {
 
             <div
               className="text-gray-400 text-base sm:text-lg font-mono hover:text-white transition-colors cursor-pointer flex items-center justify-center gap-2 sm:gap-3 px-4 py-2 hover:bg-gray-900/30 rounded-none border border-transparent hover:border-gray-700"
-              onClick={() => copyToClipboard("npm install -g flux-cli", "bottom-install")}
+              onClick={() => copyToClipboard("pip install tg-deploy", "bottom-install")}
             >
               {copiedStates["bottom-install"] ? (
                 <Check className="w-4 h-4 sm:w-5 sm:h-5 text-green-400 flex-shrink-0" />
               ) : (
                 <Copy className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 hover:text-white transition-colors flex-shrink-0" />
               )}
-              <span className="break-all sm:break-normal">$ npm install -g flux-cli</span>
+              <span className="break-all sm:break-normal">$ pip install tg-deploy</span>
             </div>
           </div>
         </div>
@@ -699,8 +699,8 @@ export default function Index() {
       <footer className="border-t border-gray-800 px-6 py-12 lg:px-12 bg-gray-950">
         <div className="max-w-7xl mx-auto">
           <div className="text-center">
-            <div className="text-gray-600 text-lg mb-4">Создано разработчиками для разработчиков.</div>
-            <div className="text-gray-700 text-sm">FLUX CLI. Деплой быстрее. Код лучше.</div>
+            <div className="text-gray-600 text-lg mb-4">Создано для команд, которые ценят скорость.</div>
+            <div className="text-gray-700 text-sm">TG Deploy. Деплой из Telegram. Без лишнего.</div>
           </div>
         </div>
       </footer>
